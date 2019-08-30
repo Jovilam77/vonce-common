@@ -1,4 +1,4 @@
-package cn.vonce.common.uitls;
+package cn.vonce.common.utils;
 
 import java.io.*;
 import java.net.HttpURLConnection;

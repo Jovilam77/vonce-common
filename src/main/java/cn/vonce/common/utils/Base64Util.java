@@ -1,14 +1,13 @@
-package cn.vonce.common.uitls;
+package cn.vonce.common.utils;
 
 import java.io.*;
 
 /**
  * Base64Util
  * 
- * @author Jovi
- * @email 766255988@qq.com
+ * @author 宋立君
  * @version 1.0
- * @date 2017年10月10日下午6:10:56
+ * @date 2014年07月03日
  */
 public class Base64Util {
 

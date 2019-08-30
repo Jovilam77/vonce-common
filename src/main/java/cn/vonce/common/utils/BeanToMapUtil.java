@@ -1,4 +1,4 @@
-package cn.vonce.common.uitls;
+package cn.vonce.common.utils;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -115,22 +115,5 @@ public class BeanToMapUtil {
 		}
 		return returnMap;
 	}
-
-	// public static void main(String[] args) {
-	// Map<Object, Object> map = new TreeMap<Object, Object>();
-	// map.put("fsf", 1);
-	// map.put("sss", "1");
-	// System.out.println(map);
-	// QxmenuPojo p = new QxmenuPojo();
-	// p.setId(111);
-	// p.setIcon("dddddd");
-	// @SuppressWarnings("unchecked")
-	// Map<Object, Object> m = toMap(p);
-	// QxmenuPojo p2 = toBean(QxmenuPojo.class, m);
-	// System.out.println(p);
-	// System.out.println(p2);
-	// System.out.println(m);
-	//
-	// }
 
 }

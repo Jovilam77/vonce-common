@@ -1,4 +1,4 @@
-package cn.vonce.common.uitls;
+package cn.vonce.common.utils;
 
 import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
@@ -46,7 +46,7 @@ public class XmlConverUtil {
         Element nodeElement = document.addElement(elementName);
         for (String key : map.keySet()) {
             Element keyElement = nodeElement.addElement(key);
-            keyElement.setText((String) map.get(key));
+            keyElement.setText(map.get(key) == null ? "" : (String) map.get(key));
         }
         return doc2Xml(document);
     }
@@ -124,7 +124,7 @@ public class XmlConverUtil {
                 Map<String, Object> map = (Map<String, Object>) o;
                 for (String key : map.keySet()) {
                     Element keyElement = nodeElement.addElement(key);
-                    keyElement.setText((String) map.get(key));
+                    keyElement.setText(map.get(key) == null ? "" : (String) map.get(key));
                 }
             } else {
                 Element keyElement = nodeElement.addElement(String.valueOf(i));
@@ -174,7 +174,7 @@ public class XmlConverUtil {
                 for (String key : map.keySet()) {
                     Element keyElement = nodeElement.addElement("key");
                     keyElement.addAttribute("label", String.valueOf(key));
-                    keyElement.setText((String) map.get(key));
+                    keyElement.setText(map.get(key) == null ? "" : (String) map.get(key));
                 }
             } else {
                 Element keyElement = nodeElement.addElement("key");

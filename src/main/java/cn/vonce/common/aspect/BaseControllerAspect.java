@@ -1,9 +1,10 @@
 package cn.vonce.common.aspect;
 
+import cn.vonce.common.annotation.LogContent;
 import cn.vonce.common.base.BaseController;
 import cn.vonce.common.bean.RS;
 import cn.vonce.common.enumerate.ResultCode;
-import cn.vonce.common.uitls.RequestDataUtil;
+import cn.vonce.common.utils.RequestDataUtil;
 import com.google.common.base.Stopwatch;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -75,7 +76,6 @@ public class BaseControllerAspect {
             this.result = result;
         }
 
-
     }
 
     /**
@@ -85,9 +85,10 @@ public class BaseControllerAspect {
      * @return
      */
     public AspectData handle(ProceedingJoinPoint pjp) {
-        AspectData aspectData = new AspectData();
+        LogContent logContent = pjp.getThis().getClass().getAnnotation(LogContent.class);
+        logger.info("C执行开始：" + (logContent != null ? "(" + logContent.value() + ")" : "") + pjp.getSignature());
         Stopwatch stopwatch = Stopwatch.createStarted();
-        Object result;
+        AspectData aspectData = new AspectData();
         try {
             Object objects[] = pjp.getArgs();
             HttpServletRequest request = null;
@@ -97,7 +98,6 @@ public class BaseControllerAspect {
                 }
             }
             aspectData.setSignature(pjp.getSignature());
-            logger.info("执行开始：" + aspectData.getSignature());
             if (request == null && pjp.getTarget() instanceof BaseController) {
                 request = ((BaseController) pjp.getTarget()).getRequest();
             }
@@ -109,11 +109,10 @@ public class BaseControllerAspect {
                 logger.info("请求头部：" + aspectData.getHeaders());
                 logger.info("请求参数：" + aspectData.getParam());
             }
-            result = pjp.proceed(pjp.getArgs());
-            aspectData.setResult(result);
-            logger.info("执行结束：" + aspectData.getSignature());
-            logger.info("响应内容：" + result);
-            logger.info("执行耗时：" + stopwatch.stop().elapsed(TimeUnit.MILLISECONDS) + "(毫秒).");
+            aspectData.setResult(pjp.proceed(pjp.getArgs()));
+            logger.info("C执行结束：" + (logContent != null ? "(" + logContent.value() + ")" : "") + aspectData.getSignature());
+            logger.info("C响应内容：" + aspectData.getResult());
+            logger.info("C执行耗时：" + stopwatch.stop().elapsed(TimeUnit.MILLISECONDS) + "(毫秒).");
         } catch (Throwable throwable) {
             String msg = "系统异常：" + throwable.getMessage();
             RS rs = new RS();

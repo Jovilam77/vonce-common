@@ -1,4 +1,4 @@
-package cn.vonce.common.uitls;
+package cn.vonce.common.utils;
 
 import freemarker.core.ParseException;
 import freemarker.template.*;

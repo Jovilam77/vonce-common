@@ -1,4 +1,4 @@
-package cn.vonce.common.uitls;
+package cn.vonce.common.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;

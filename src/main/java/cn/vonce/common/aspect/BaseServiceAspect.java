@@ -23,30 +23,53 @@ public class BaseServiceAspect {
      */
     private final Logger logger = LoggerFactory.getLogger(BaseServiceAspect.class);
 
+    public class AspectData {
+        private Signature signature;
+        private Object[] params;
+        private Object result;
+
+        public Signature getSignature() {
+            return signature;
+        }
+
+        private void setSignature(Signature signature) {
+            this.signature = signature;
+        }
+
+        public Object[] getParams() {
+            return params;
+        }
+
+        private void setParams(Object[] params) {
+            this.params = params;
+        }
+
+        public Object getResult() {
+            return result;
+        }
+
+        private void setResult(Object result) {
+            this.result = result;
+        }
+
+    }
+
     /**
      * 环绕处理
      *
      * @param pjp
      * @return
      */
-    public Object handle(ProceedingJoinPoint pjp) {
+    public AspectData handle(ProceedingJoinPoint pjp) throws Throwable {
+        logger.info("S执行开始：" + pjp.getSignature());
         Stopwatch stopwatch = Stopwatch.createStarted();
-        Object result = null;
-        try {
-            Object objects[] = pjp.getArgs();
-            Signature signature = pjp.getSignature();
-            logger.info("执行开始：" + signature);
-            for (Object object : objects) {
-                logger.debug("param> {}：{}", object.getClass().getName(), object.toString());
-            }
-            result = pjp.proceed(pjp.getArgs());
-            logger.info("执行结束：" + signature);
-            logger.info("执行耗时：" + stopwatch.stop().elapsed(TimeUnit.MILLISECONDS) + "(毫秒).");
-        } catch (Throwable throwable) {
-            logger.error(throwable.getMessage());
-            throwable.printStackTrace();
-        }
-        return result;
+        AspectData aspectData = new AspectData();
+        aspectData.setSignature(pjp.getSignature());
+        aspectData.setParams(pjp.getArgs());
+        aspectData.setResult(pjp.proceed(pjp.getArgs()));
+        logger.info("S执行结束：" + pjp.getSignature());
+        logger.info("S执行耗时：" + stopwatch.stop().elapsed(TimeUnit.MILLISECONDS) + "(毫秒).");
+        return aspectData;
     }
 
 }

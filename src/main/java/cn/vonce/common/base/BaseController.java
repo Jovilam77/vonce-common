@@ -2,8 +2,8 @@ package cn.vonce.common.base;
 
 import cn.vonce.common.bean.RS;
 import cn.vonce.common.enumerate.ResultCode;
-import cn.vonce.common.uitls.FastJsonUtil;
-import cn.vonce.common.uitls.StringUtil;
+import cn.vonce.common.utils.FastJsonUtil;
+import cn.vonce.common.utils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ModelAttribute;

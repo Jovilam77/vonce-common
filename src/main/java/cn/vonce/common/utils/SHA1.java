@@ -1,4 +1,4 @@
-package cn.vonce.common.uitls;
+package cn.vonce.common.utils;
 /**
  * 
  * <p>Title:SHA1</p>
