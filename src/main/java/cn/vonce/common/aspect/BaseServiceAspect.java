@@ -1,5 +1,6 @@
 package cn.vonce.common.aspect;
 
+import cn.vonce.common.annotation.LogContent;
 import com.google.common.base.Stopwatch;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -61,14 +62,15 @@ public class BaseServiceAspect {
      * @return
      */
     public AspectData handle(ProceedingJoinPoint pjp) throws Throwable {
-        logger.info("S执行开始：" + pjp.getSignature());
         Stopwatch stopwatch = Stopwatch.createStarted();
+        LogContent logContent = pjp.getThis().getClass().getAnnotation(LogContent.class);
+        logger.info("执行开始：{}", (logContent != null ? "(" + logContent.value() + ")" : "") + pjp.getSignature());
+        logger.info("方法参数：{}", pjp.getArgs());
         AspectData aspectData = new AspectData();
         aspectData.setSignature(pjp.getSignature());
         aspectData.setParams(pjp.getArgs());
         aspectData.setResult(pjp.proceed(pjp.getArgs()));
-        logger.info("S执行结束：" + pjp.getSignature());
-        logger.info("S执行耗时：" + stopwatch.stop().elapsed(TimeUnit.MILLISECONDS) + "(毫秒).");
+        logger.info("执行结束：{}，耗时：{}(毫秒).", (logContent != null ? "(" + logContent.value() + ")" : "") + pjp.getSignature(), stopwatch.stop().elapsed(TimeUnit.MILLISECONDS));
         return aspectData;
     }
 
