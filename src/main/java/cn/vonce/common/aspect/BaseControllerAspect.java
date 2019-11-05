@@ -116,7 +116,7 @@ public class BaseControllerAspect {
             rs.setCode(ResultCode.ERROR.getCode());
             rs.setMsg(msg);
             aspectData.setResult(rs);
-            logger.error(msg);
+            logger.error(msg, throwable);
             throwable.printStackTrace();
         }
         return aspectData;
