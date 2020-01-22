@@ -1,7 +1,5 @@
 package cn.vonce.common.utils;
 
-import java.util.regex.Pattern;
-
 public class CheckChineseUtil {
 
 	public static void main(String[] args) {
@@ -43,27 +41,6 @@ public class CheckChineseUtil {
 		System.out.println("s8是否全是中文：" + isChineseByRange(s8));// false
 		System.out.println("s9是否全是中文：" + isChineseByRange(s9));// true
 		System.out.println("-------分割线-------");
-		// 2 使用字符范围正则判断（结果同1）
-		System.out.println("s1是否包含中文：" + hasChineseByReg(s1));// false
-		System.out.println("s2是否包含中文：" + hasChineseByReg(s2));// true
-		System.out.println("s3是否包含中文：" + hasChineseByReg(s3));// true
-		System.out.println("s4是否包含中文：" + hasChineseByReg(s4));// false
-		System.out.println("s5是否包含中文：" + hasChineseByReg(s5));// false
-		System.out.println("s6是否包含中文：" + hasChineseByReg(s6));// false
-		System.out.println("s7是否包含中文：" + hasChineseByReg(s7));// false
-		System.out.println("s8是否包含中文：" + hasChineseByReg(s8));// false
-		System.out.println("s9是否包含中文：" + hasChineseByReg(s9));// true
-		System.out.println("-------分割线-------");
-		System.out.println("s1是否全是中文：" + isChineseByReg(s1));// false
-		System.out.println("s2是否全是中文：" + isChineseByReg(s2));// true
-		System.out.println("s3是否全是中文：" + isChineseByReg(s3));// false 中文标点不在范围内
-		System.out.println("s4是否全是中文：" + isChineseByReg(s4));// false
-		System.out.println("s5是否全是中文：" + isChineseByReg(s5));// false
-		System.out.println("s6是否全是中文：" + isChineseByReg(s6));// false
-		System.out.println("s7是否全是中文：" + isChineseByReg(s7));// false
-		System.out.println("s8是否全是中文：" + isChineseByReg(s8));// false
-		System.out.println("s9是否全是中文：" + isChineseByReg(s9));// true
-		System.out.println("-------分割线-------");
 		// 3 使用CJK字符集判断
 		System.out.println("s1是否包含中文：" + hasChinese(s1));// false
 		System.out.println("s2是否包含中文：" + hasChinese(s2));// true
@@ -89,7 +66,7 @@ public class CheckChineseUtil {
 	/**
 	 * 是否包含中文字符<br>
 	 * 包含中文标点符号<br>
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
@@ -109,7 +86,7 @@ public class CheckChineseUtil {
 	/**
 	 * 是否全是中文字符<br>
 	 * 包含中文标点符号<br>
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
@@ -129,7 +106,7 @@ public class CheckChineseUtil {
 	/**
 	 * 是否是中文字符<br>
 	 * 包含中文标点符号<br>
-	 * 
+	 *
 	 * @param c
 	 * @return
 	 */
@@ -161,39 +138,7 @@ public class CheckChineseUtil {
 	 * 是否包含汉字<br>
 	 * 根据汉字编码范围进行判断<br>
 	 * CJK统一汉字（不包含中文的，。《》（）“‘'”、！￥等符号）<br>
-	 * 
-	 * @param str
-	 * @return
-	 */
-	public static boolean hasChineseByReg(String str) {
-		if (str == null) {
-			return false;
-		}
-		Pattern pattern = Pattern.compile("[\\u4E00-\\u9FBF]+");
-		return pattern.matcher(str).find();
-	}
-
-	/**
-	 * 是否全是汉字<br>
-	 * 根据汉字编码范围进行判断<br>
-	 * CJK统一汉字（不包含中文的，。《》（）“‘'”、！￥等符号）<br>
-	 * 
-	 * @param str
-	 * @return
-	 */
-	public static boolean isChineseByReg(String str) {
-		if (str == null) {
-			return false;
-		}
-		Pattern pattern = Pattern.compile("[\\u4E00-\\u9FBF]+");
-		return pattern.matcher(str).matches();
-	}
-
-	/**
-	 * 是否包含汉字<br>
-	 * 根据汉字编码范围进行判断<br>
-	 * CJK统一汉字（不包含中文的，。《》（）“‘'”、！￥等符号）<br>
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
@@ -214,7 +159,7 @@ public class CheckChineseUtil {
 	 * 是否全是汉字<br>
 	 * 根据汉字编码范围进行判断<br>
 	 * CJK统一汉字（不包含中文的，。《》（）“‘'”、！￥等符号）<br>
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
