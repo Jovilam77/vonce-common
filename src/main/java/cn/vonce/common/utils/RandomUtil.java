@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * 生成随机数
  * 
- * @author Jovi-林兆维
+ * @author Jovi
  * @date 2015年5月14日
  * @version 1.0
  *
@@ -15,10 +15,6 @@ public class RandomUtil {
 	private static Random random = new Random();
 	// 生成随机数的默认位数
 	private static final long BITS = 6;
-
-	public static void main(String[] s) {
-		System.out.println(makeUUID());
-	}
 
 	/*
 	 * 生成uuid
