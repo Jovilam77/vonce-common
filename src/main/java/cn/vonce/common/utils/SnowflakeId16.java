@@ -28,9 +28,9 @@ import java.util.regex.Pattern;
  * <p>
  * It can generate 64k unique id per IP and up to 2106-02-07T06:28:15Z.
  */
-public final class IdUtil {
+public final class SnowflakeId16 {
 
-    private static final Logger logger = LoggerFactory.getLogger(IdUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(SnowflakeId16.class);
 
     private static final Pattern PATTERN_LONG_ID = Pattern.compile("^([0-9]{15})([0-9a-f]{32})([0-9a-f]{3})$");
 

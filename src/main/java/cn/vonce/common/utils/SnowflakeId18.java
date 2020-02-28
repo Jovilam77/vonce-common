@@ -35,7 +35,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author lry
  * @version 3.0
  */
-public final class Sequence {
+public final class SnowflakeId18 {
 
     /**
      * 起始时间戳
@@ -84,11 +84,11 @@ public final class Sequence {
     private final boolean randomSequence;
     private final ThreadLocalRandom tlr = ThreadLocalRandom.current();
 
-    public Sequence(long dataCenterId) {
+    public SnowflakeId18(long dataCenterId) {
         this(dataCenterId, 0x000000FF & getLastIPAddress(), false, 5L, false);
     }
 
-    public Sequence(long dataCenterId, boolean clock, boolean randomSequence) {
+    public SnowflakeId18(long dataCenterId, boolean clock, boolean randomSequence) {
         this(dataCenterId, 0x000000FF & getLastIPAddress(), clock, 5L, randomSequence);
     }
 
@@ -101,7 +101,7 @@ public final class Sequence {
      * @param timeOffset     允许时间回拨的毫秒量,建议5ms
      * @param randomSequence true表示使用毫秒内的随机序列(超过范围则取余)
      */
-    public Sequence(long dataCenterId, long workerId, boolean clock, long timeOffset, boolean randomSequence) {
+    public SnowflakeId18(long dataCenterId, long workerId, boolean clock, long timeOffset, boolean randomSequence) {
         if (dataCenterId > MAX_DATA_CENTER_ID || dataCenterId < 0) {
             throw new IllegalArgumentException("Data Center Id can't be greater than " + MAX_DATA_CENTER_ID + " or less than 0");
         }
