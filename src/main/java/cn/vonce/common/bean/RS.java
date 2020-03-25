@@ -9,11 +9,11 @@ package cn.vonce.common.bean;
  * @email 766255988@qq.com
  * @date 2017年5月24日上午11:32:38
  */
-public class RS {
+public class RS<T> {
 
     private Integer code;
     private String msg;
-    private Object data;
+    private T data;
 
 
     public Integer getCode() {
@@ -32,11 +32,11 @@ public class RS {
         this.msg = msg;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 
