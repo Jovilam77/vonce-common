@@ -3,8 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <name>vonce-common</name>
-    <description>This is an SQL generation assistant, and provides plug-in support for mybatis and spring jdbc. Using it
-        in your project can generate most SQL statements for you, which is a bit like hibernate.
+    <description>This is the common module of the vonce project.
     </description>
     <url>www.vonce.cn</url>
     <licenses>
@@ -115,7 +114,7 @@
 
     <groupId>cn.vonce</groupId>
     <artifactId>vonce-common</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <packaging>jar</packaging>
 
     <!-- 版本信息 -->

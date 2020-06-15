@@ -1,6 +1,5 @@
 package cn.vonce.common.utils;
 
-import java.text.ParseException;
 import java.util.regex.Pattern;
 
 public class ValidatorUtil {

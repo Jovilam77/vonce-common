@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Controller增强日志、异常处理
+ * Service增强日志、异常处理
  *
  * @author jovi
  * @version 1.0
