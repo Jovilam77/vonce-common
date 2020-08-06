@@ -1,7 +1,5 @@
 package cn.vonce.common.utils;
 
-import org.springframework.util.StringUtils;
-
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;

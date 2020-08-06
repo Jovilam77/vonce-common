@@ -243,20 +243,6 @@ public class XmlConverUtil {
     }
 
     /**
-     * xml 字符串 转 json 字符串
-     *
-     * @param xml
-     * @return
-     * @throws DocumentException
-     * @author Jovi
-     * @date 2018年3月16日下午3:53:15
-     */
-    public static String xml2Json(String xml) throws DocumentException {
-        Document document = DocumentHelper.parseText(xml);
-        return FastJsonUtil.obj2Json(element2Map(document.getRootElement()));
-    }
-
-    /**
      * xml 字符串 转 Map
      *
      * @param xml
