@@ -1,15 +1,17 @@
 package cn.vonce.common.aspect;
 
 import cn.vonce.common.annotation.LogContent;
-import cn.vonce.common.base.BaseController;
 import cn.vonce.common.bean.RS;
 import cn.vonce.common.enumerate.ResultCode;
 import cn.vonce.common.utils.RequestDataUtil;
 import com.google.common.base.Stopwatch;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.concurrent.TimeUnit;
@@ -87,35 +89,27 @@ public class BaseControllerAspect {
     public AspectData handle(ProceedingJoinPoint pjp) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         LogContent logContent = pjp.getThis().getClass().getAnnotation(LogContent.class);
-        logger.info("请求开始：{}", (logContent != null ? "(" + logContent.value() + ")" : "") + pjp.getSignature());
+        logger.info("请求开始: {}", (logContent != null ? "(" + logContent.value() + ")" : "") + pjp.getSignature());
         AspectData aspectData = new AspectData();
         try {
-            Object objects[] = pjp.getArgs();
-            HttpServletRequest request = null;
-            for (Object object : objects) {
-                if (object instanceof HttpServletRequest) {
-                    request = (HttpServletRequest) object;
-                }
-            }
-            aspectData.setSignature(pjp.getSignature());
-            if (request == null && pjp.getTarget() instanceof BaseController) {
-                request = ((BaseController) pjp.getTarget()).getRequest();
-            }
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             if (request != null) {
                 aspectData.setUrl(request.getRequestURL().toString());
                 aspectData.setHeaders(RequestDataUtil.getHeaders(request));
                 aspectData.setParam(RequestDataUtil.getParameters(request.getParameterMap()));
-                logger.info("请求地址：{}，请求头部{}，请求参数：{}", aspectData.getUrl(), aspectData.getHeaders(), aspectData.getParam());
+                logger.info("请求地址: {}, 请求头部{}, 请求参数: {}", aspectData.getUrl(), aspectData.getHeaders(), aspectData.getParam());
             }
             aspectData.setResult(pjp.proceed(pjp.getArgs()));
-            logger.debug("请求响应：" + aspectData.getResult());
-            logger.info("请求结束：{}，耗时：{}(毫秒).", (logContent != null ? "(" + logContent.value() + ")" : "") + aspectData.getSignature(), stopwatch.stop().elapsed(TimeUnit.MILLISECONDS));
+            logger.debug("请求响应: " + aspectData.getResult());
+            logger.info("请求结束: {}, 耗时: {}(毫秒).", (logContent != null ? "(" + logContent.value() + ")" : "") + aspectData.getSignature(), stopwatch.stop().elapsed(TimeUnit.MILLISECONDS));
         } catch (Throwable throwable) {
-            String msg = "系统异常：" + throwable.getMessage();
-            RS rs = new RS();
-            rs.setCode(ResultCode.ERROR.getCode());
-            rs.setMsg(msg);
-            aspectData.setResult(rs);
+            String msg = "系统异常: " + throwable.getMessage();
+            if (RS.class.isAssignableFrom(((MethodSignature) pjp.getSignature()).getReturnType())) {
+                RS rs = new RS();
+                rs.setCode(ResultCode.ERROR.getCode());
+                rs.setMsg(msg);
+                aspectData.setResult(rs);
+            }
             logger.error(msg, throwable);
             throwable.printStackTrace();
         }

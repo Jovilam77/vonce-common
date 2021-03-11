@@ -64,13 +64,23 @@ public class BaseServiceAspect {
     public AspectData handle(ProceedingJoinPoint pjp) throws Throwable {
         Stopwatch stopwatch = Stopwatch.createStarted();
         LogContent logContent = pjp.getThis().getClass().getAnnotation(LogContent.class);
-        logger.info("执行开始：{}", (logContent != null ? "(" + logContent.value() + ")" : "") + pjp.getSignature());
-        logger.info("方法参数：{}", pjp.getArgs());
+        logger.info("执行开始: {}", (logContent != null ? "(" + logContent.value() + ")" : "") + pjp.getSignature());
+        StringBuffer argsSb = new StringBuffer();
+        argsSb.append("[");
+        if (pjp.getArgs() != null && pjp.getArgs().length > 0) {
+            for (Object arg : pjp.getArgs()) {
+                argsSb.append(arg);
+                argsSb.append(",");
+            }
+            argsSb.deleteCharAt(argsSb.length() - 1);
+        }
+        argsSb.append("]");
+        logger.info("方法参数: {}", argsSb);
         AspectData aspectData = new AspectData();
         aspectData.setSignature(pjp.getSignature());
         aspectData.setParams(pjp.getArgs());
         aspectData.setResult(pjp.proceed(pjp.getArgs()));
-        logger.info("执行结束：{}，耗时：{}(毫秒).", (logContent != null ? "(" + logContent.value() + ")" : "") + pjp.getSignature(), stopwatch.stop().elapsed(TimeUnit.MILLISECONDS));
+        logger.info("执行结束: {}, 耗时: {}(毫秒).", (logContent != null ? "(" + logContent.value() + ")" : "") + pjp.getSignature(), stopwatch.stop().elapsed(TimeUnit.MILLISECONDS));
         return aspectData;
     }
 
